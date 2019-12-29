@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./utils/config');
+const eventRouter = require('./controllers/events');
 
 const app = express();
 
@@ -19,5 +20,6 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/api/v1/event', eventRouter);
 
 module.exports = app;
