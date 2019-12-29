@@ -1,6 +1,20 @@
 const eventRouter = require('express').Router();
 const Event = require('../models/event');
 
+eventRouter.get('/list', (req, res) => {
+  Event
+    .find({})
+    .then((events) => {
+      res.json(events.map((event) => {
+        const eventParsed = {
+          id: event.id,
+          name: event.name,
+        };
+        return eventParsed;
+      }));
+    });
+});
+
 eventRouter.post('/', (req, res) => {
   const event = new Event({
     name: req.body.name,
