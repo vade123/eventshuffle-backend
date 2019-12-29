@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const config = require('./utils/config');
 
 const app = express();
@@ -14,5 +16,8 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
     console.log('Server shutting down');
     process.exit(1);
   });
+
+app.use(cors());
+app.use(bodyParser.json());
 
 module.exports = app;
