@@ -6,11 +6,11 @@ eventRouter.get('/list', (req, res) => {
     .find({})
     .then((events) => {
       res.json(events.map((event) => {
-        const eventParsed = {
+        const parsedEvent = {
           id: event.id,
           name: event.name,
         };
-        return eventParsed;
+        return parsedEvent;
       }));
     });
 });
