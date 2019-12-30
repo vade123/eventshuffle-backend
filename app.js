@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const config = require('./utils/config');
 const eventRouter = require('./controllers/events');
+const middleware = require('./utils/middleware');
 
 const app = express();
 
@@ -21,5 +22,7 @@ mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api/v1/event', eventRouter);
+app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 module.exports = app;
