@@ -15,7 +15,10 @@ const eventSchema = new mongoose.Schema({
     required: true,
   },
   dates: Array,
-  votes: Array,
+  votes: [{
+    date: String,
+    people: Array,
+  }],
 });
 
 eventSchema.path('dates').validate(notEmpty, 'atleast one date is required');

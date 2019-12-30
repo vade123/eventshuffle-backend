@@ -31,9 +31,9 @@ eventRouter.post('/', (req, res, next) => {
 
 eventRouter.get('/:id', (req, res, next) => {
   Event.findById(req.params.id)
-    .then((person) => {
-      if (person) {
-        res.json(person.toJSON());
+    .then((event) => {
+      if (event) {
+        res.json(event.toJSON());
       } else {
         res.status(400).end();
       }
