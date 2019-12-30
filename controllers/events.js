@@ -15,7 +15,7 @@ eventRouter.get('/list', (req, res) => {
     });
 });
 
-eventRouter.post('/', (req, res) => {
+eventRouter.post('/', (req, res, next) => {
   const event = new Event({
     name: req.body.name,
     dates: req.body.dates,
@@ -25,7 +25,8 @@ eventRouter.post('/', (req, res) => {
     .save()
     .then((result) => {
       res.status(201).json({ id: result.id });
-    });
+    })
+    .catch((error) => next(error));
 });
 
 eventRouter.get('/:id', (req, res, next) => {
