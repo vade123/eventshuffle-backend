@@ -28,4 +28,16 @@ eventRouter.post('/', (req, res) => {
     });
 });
 
+eventRouter.get('/:id', (req, res, next) => {
+  Event.findById(req.params.id)
+    .then((person) => {
+      if (person) {
+        res.json(person.toJSON());
+      } else {
+        res.status(400).end();
+      }
+    })
+    .catch((error) => next(error));
+});
+
 module.exports = eventRouter;
