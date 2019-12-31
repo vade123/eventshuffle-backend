@@ -26,6 +26,9 @@ eventSchema.path('dates').validate(notEmpty, 'atleast one date is required');
 eventSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
+    returnedObject.votes.forEach((obj) => {
+      delete obj._id;
+    });
     delete returnedObject._id;
     delete returnedObject.__v;
   },
