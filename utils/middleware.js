@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const errorHandler = (error, req, res, next) => {
   console.log(error.message);
 
