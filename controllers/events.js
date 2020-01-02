@@ -20,6 +20,7 @@ eventRouter.post('/', (req, res, next) => {
     name: req.body.name,
     dates: req.body.dates,
     votes: [],
+    participants: [],
   });
   event
     .save()
@@ -47,15 +48,19 @@ eventRouter.post('/:id/vote', (req, res, next) => {
   Event.findById(id)
     .then((event) => {
       if (event) {
+        const newEvent = event;
         votes.forEach((date) => {
-          const pos = event.votes.findIndex((obj) => obj.date === date);
+          const pos = newEvent.votes.findIndex((obj) => obj.date === date);
           if (pos === -1) {
-            event.votes.push({ date, people: [name] });
+            newEvent.votes = newEvent.votes.concat({ date, people: [name] });
           } else {
-            event.votes[pos].people.push(name);
+            newEvent.votes[pos].people = newEvent.votes[pos].people.concat(name);
           }
         });
-        Event.findByIdAndUpdate(id, event, { new: true })
+        if (!event.participants.includes(name)) {
+          newEvent.participants = newEvent.participants.concat(name);
+        }
+        Event.findByIdAndUpdate(id, newEvent, { new: true })
           .then((updatedEvent) => {
             res.json(updatedEvent.toJSON());
           })

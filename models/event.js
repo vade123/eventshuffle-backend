@@ -19,6 +19,7 @@ const eventSchema = new mongoose.Schema({
     date: String,
     people: Array,
   }],
+  participants: [],
 });
 
 eventSchema.path('dates').validate(notEmpty, 'atleast one date is required');
@@ -31,6 +32,7 @@ eventSchema.set('toJSON', {
     });
     delete returnedObject._id;
     delete returnedObject.__v;
+    delete returnedObject.participants;
   },
 });
 
