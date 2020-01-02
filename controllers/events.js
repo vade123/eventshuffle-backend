@@ -1,4 +1,5 @@
 const eventRouter = require('express').Router();
+const _ = require('lodash');
 const Event = require('../models/event');
 
 eventRouter.get('/list', (req, res) => {
@@ -65,6 +66,30 @@ eventRouter.post('/:id/vote', (req, res, next) => {
             res.json(updatedEvent.toJSON());
           })
           .catch((error) => next(error));
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch((error) => next(error));
+});
+
+eventRouter.get('/:id/results', (req, res, next) => {
+  Event.findById(req.params.id)
+    .then((event) => {
+      if (event) {
+        let suitableDates = [];
+        const people = event.participants;
+        event.votes.forEach((obj) => {
+          if (_.isEmpty(_.xor(obj.people, people))) {
+            suitableDates = suitableDates.concat({ date: obj.date, people });
+          }
+        });
+        const response = {
+          id: event.id,
+          name: event.name,
+          suitableDates,
+        };
+        res.json(response);
       } else {
         res.status(404).end();
       }
