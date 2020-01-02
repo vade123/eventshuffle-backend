@@ -63,7 +63,8 @@ eventRouter.post('/:id/vote', (req, res, next) => {
       } else {
         res.status(404).end();
       }
-    });
+    })
+    .catch((error) => next(error));
 });
 
 module.exports = eventRouter;
