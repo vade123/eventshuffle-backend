@@ -4,15 +4,16 @@ const Event = require('../models/event');
 
 eventRouter.get('/list', (req, res) => {
   Event
-    .find({})
+    .find()
     .then((events) => {
-      res.json(events.map((event) => {
+      const parsedEvents = events.map((event) => {
         const parsedEvent = {
           id: event.id,
           name: event.name,
         };
         return parsedEvent;
-      }));
+      });
+      res.json({ events: parsedEvents });
     });
 });
 
