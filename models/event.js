@@ -19,7 +19,7 @@ const eventSchema = new mongoose.Schema({
     date: String,
     people: Array,
   }],
-  participants: [],
+  participants: Array,
 });
 
 eventSchema.path('dates').validate(notEmpty, 'atleast one date is required');
