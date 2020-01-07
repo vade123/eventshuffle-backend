@@ -1,5 +1,5 @@
 # eventshuffle-backend
-A backend API for a doodle-like application, [Futurice's job interview backend assignment](https://gist.github.com/anttti/2b69aebc63687ebf05ec).
+A backend API for a doodle-like application, current features: save events, vote on suitable dates, get dates suitable for all participants.
 ## Requirements
 - [node.js](https://nodejs.org/en/), developed on version `10.15.3`. _Should_ work on all versions up from `8.0`, although not confirmed.
 - A [MongoDB](https://www.mongodb.com/) database
